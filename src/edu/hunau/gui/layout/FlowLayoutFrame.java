@@ -32,6 +32,7 @@ public class FlowLayoutFrame extends BaseFrame{
 		System.out.println(layout);
 		
 		this.setVisible(true);
+//		设置窗口大小不可调整
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
