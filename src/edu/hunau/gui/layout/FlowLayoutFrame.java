@@ -26,11 +26,13 @@ public class FlowLayoutFrame extends BaseFrame{
 			jPanel.add(btn);
 		}
 		this.add(jPanel);
-		
+//		窗口大小不可调整
+		this.setResizable(false);
 		LayoutManager layout = this.getLayout();
 		System.out.println(layout);
 		
 		this.setVisible(true);
+		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
