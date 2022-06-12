@@ -1,12 +1,15 @@
 package edu.hunau.gui;
 
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.Font;
 
 import edu.hunau.gui.utils.BaseFrame;
 
@@ -42,6 +45,7 @@ public class LoginFrame extends BaseFrame {
 		JPanel hostPanel = new JPanel();
 		JLabel hostLabel = new JLabel("主机名");
 		JTextField hostField = new JTextField(20);
+		hostField.setText("localhost");
 		hostPanel.add(hostLabel);
 		hostPanel.add(hostField);
 		
@@ -51,6 +55,7 @@ public class LoginFrame extends BaseFrame {
 		JPanel portPanel = new JPanel();
 		JLabel portLabel = new JLabel("端口号");
 		JTextField portField = new JTextField(20);
+		portField.setText("8088");
 		portPanel.add(portLabel);
 		portPanel.add(portField);
 		
@@ -60,6 +65,14 @@ public class LoginFrame extends BaseFrame {
 		JPanel btnPanel = new JPanel();
 		JButton restBtn = new JButton("重置");
 		JButton connBtn = new JButton("连接");
+//		为connBtn绑定事件
+		connBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("按钮被单击");
+				String username = userNameField.getText();
+				System.out.println(username);			}
+		});
 		btnPanel.add(restBtn);
 		btnPanel.add(connBtn);
 		
