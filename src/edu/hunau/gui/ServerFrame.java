@@ -5,7 +5,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -104,6 +105,23 @@ public class ServerFrame extends BaseFrame{
 		
 //		设置按钮的图标
 		JButton excuteBtn = new JButton(new ImageIcon("start.png"));
+		// TODO: 启动服务器
+		excuteBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String btnStatus = excuteBtn.getIcon().toString();
+				if (btnStatus.startsWith("start")) {
+					//启动服务器
+					
+					//设置图标
+					excuteBtn.setIcon(new ImageIcon("stop.png"));
+				}else {
+					//关闭服务器
+					excuteBtn.setIcon(new ImageIcon("start.png"));
+				}
+				
+			}
+		});
 		
 		jPanel.add(jLabel);
 		jPanel.add(portField);
