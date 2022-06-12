@@ -3,7 +3,9 @@ package edu.hunau.gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
+
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -111,6 +113,13 @@ public class ServerFrame extends BaseFrame{
 	}
 	
 	public static void main(String[] args) {
-		new ServerFrame().init();
+		EventQueue.invokeLater(new Runnable(){
+			
+			@Override
+			public void run() {
+				new ServerFrame().init();
+			}
+		});
+		
 	}
 }
