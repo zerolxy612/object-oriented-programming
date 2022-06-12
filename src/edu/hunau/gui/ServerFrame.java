@@ -4,14 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import edu.hunau.gui.utils.BaseFrame;
 
@@ -57,10 +62,28 @@ public class ServerFrame extends BaseFrame{
 		
 		jSplitPane.setDividerSize(5);
 		jSplitPane.setDividerLocation(150);
+//		设置切分线位置不可移动
 		jSplitPane.setEnabled(false);
 		
-		jSplitPane.setRightComponent(new JPanel());
-		jSplitPane.setLeftComponent(new JPanel());
+	    JScrollPane leftPane = new JScrollPane();
+//	    表格中的数据模型
+//	    提供字段名称
+	    Vector<String> colNames = new Vector<>();
+	    colNames.add("客户端名称");
+	    
+	    DefaultTableModel clientInfoTableModel = new DefaultTableModel(colNames,0);
+	    JTable clientTable = new JTable(clientInfoTableModel);
+		leftPane.setViewportView(clientTable);
+	    
+        jSplitPane.setLeftComponent(leftPane);
+        
+        JScrollPane rightPane = new JScrollPane();
+		
+		JTextArea messageArea = new JTextArea();
+		rightPane.setViewportView(messageArea);
+		
+		jSplitPane.setRightComponent(rightPane);
+		
 		return jSplitPane;
 	}
 
