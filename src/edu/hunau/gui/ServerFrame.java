@@ -1,8 +1,9 @@
 package edu.hunau.gui;
 
-import java.awt.Dimension;
-import java.awt.Component;
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,7 +34,15 @@ public class ServerFrame extends BaseFrame{
 	
 //	底部的组件
 	private JPanel bottomPanel() {
-		JPanel jPanel =  new JPanel();
+		JPanel jPanel =  new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		
+		JTextField messageField = new JTextField(15);
+		messageField.setPreferredSize(new Dimension(0,28));
+		
+		JButton sendBtn = new JButton("发送");
+		
+		jPanel.add(messageField);
+		jPanel.add(sendBtn);
 		return jPanel;
 	}
 	
