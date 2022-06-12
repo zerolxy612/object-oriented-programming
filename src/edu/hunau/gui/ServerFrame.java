@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 
 import edu.hunau.gui.utils.BaseFrame;
@@ -50,7 +51,17 @@ public class ServerFrame extends BaseFrame{
 //	中间的组件
 	private Component middlePanel() {
 		JPanel jPanel =  new JPanel();
-		return jPanel;
+		
+//		获得分割组件为水平摆放的切分面板
+		JSplitPane jSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		
+		jSplitPane.setDividerSize(5);
+		jSplitPane.setDividerLocation(150);
+		jSplitPane.setEnabled(false);
+		
+		jSplitPane.setRightComponent(new JPanel());
+		jSplitPane.setLeftComponent(new JPanel());
+		return jSplitPane;
 	}
 
 //	顶部的组件
