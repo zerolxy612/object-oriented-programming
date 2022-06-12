@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import edu.hunau.gui.utils.BaseFrame;
+import server.Server;
 
 /**     
 *  
@@ -111,8 +112,8 @@ public class ServerFrame extends BaseFrame{
 			public void actionPerformed(ActionEvent e) {
 				String btnStatus = excuteBtn.getIcon().toString();
 				if (btnStatus.startsWith("start")) {
-					//启动服务器
-					
+					//启动服务器 Server必须由线程进行处理
+					new Thread(new Server()).start();
 					//设置图标
 					excuteBtn.setIcon(new ImageIcon("stop.png"));
 				}else {
