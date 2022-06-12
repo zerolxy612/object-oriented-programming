@@ -44,18 +44,18 @@ public class ServerFrame extends BaseFrame{
 		return jPanel;
 	}
 
-//	底部的组件
+//	顶部的组件
 	private JPanel topPanel() {
 		JPanel jPanel = new JPanel();
 		
 		JLabel jLabel = new JLabel("服务器端口");
 		JTextField portField = new JTextField();
-		portField.setPreferredSize(new Dimension(50,30));
+		portField.setPreferredSize(new Dimension(50,28));
 		
 //		设置内容在文本框居中
 		portField.setHorizontalAlignment(JTextField.CENTER);
 //		设置默认值
-		portField.setText("8080");
+		portField.setText("8088");
 		
 //		设置按钮的图标
 		JButton excuteBtn = new JButton(new ImageIcon("start.png"));
@@ -66,6 +66,7 @@ public class ServerFrame extends BaseFrame{
 		
 		return jPanel;
 	}
+	
 	public static void main(String[] args) {
 		new ServerFrame().init();
 	}
