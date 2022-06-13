@@ -34,7 +34,7 @@ public class ServerFrame extends BaseFrame {
 	private JTextArea messageArea;
 
 	public void init() {
-		this.setSize(500, 450);
+		this.setSize(800, 450);
 
 		this.add(topPanel(), BorderLayout.NORTH);
 		this.add(middlePanel());

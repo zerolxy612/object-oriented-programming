@@ -8,6 +8,7 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 
 import edu.hunau.gui.ServerFrame;
+import edu.hunau.gui.utils.ChatRoomUtils;
 
 /**     
 *  
@@ -57,9 +58,9 @@ public class Server implements Runnable{
 			String message = "服务器启动成功,ip地址为"+ hostName + ",监听端口:" + port;
 			System.out.println("服务器启动,等待客户端连接"+ hostName + ",监听端口" + port);
 			// 弹出一个消息框
-			JOptionPane.showMessageDialog(null, message);
+			JOptionPane.showMessageDialog(serverFrame, message);
 			
-			serverFrame.getMessageArea().append(message);
+			serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(message));
 //			如果有客户端连接,会返回一个socket实例
 			Socket clientSocket= serverSocket.accept();
 		} catch (IOException e) {
