@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import edu.hunau.gui.utils.BaseFrame;
-import server.Server;
+import eud.huanu.gui.server.Server;
 
 /**
  * 

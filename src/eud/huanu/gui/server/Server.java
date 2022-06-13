@@ -1,4 +1,4 @@
-package server;
+package eud.huanu.gui.server;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -43,7 +43,7 @@ public class Server implements Runnable{
 	}
 	
 	public void start() {
-
+		
 	}
 	public static void main(String[] args) {
 //		new Server().start();
@@ -77,6 +77,7 @@ public class Server implements Runnable{
 			serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(message));
 //			如果有客户端连接,会返回一个socket实例
 			Socket clientSocket= serverSocket.accept();
+			System.out.println("服务端:获得客户端连接");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
