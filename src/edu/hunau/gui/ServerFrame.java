@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -96,6 +97,8 @@ public class ServerFrame extends BaseFrame {
 
 		return jSplitPane;
 	}
+	
+	private Server server;
 
 //	顶部的组件
 	private JPanel topPanel() {
@@ -117,13 +120,18 @@ public class ServerFrame extends BaseFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String btnStatus = excuteBtn.getIcon().toString();
+				
 				if (btnStatus.startsWith("start")) {
 					// 启动服务器 Server必须由线程进行处理
-					new Thread(new Server(ServerFrame.this)).start();
+					server = new Server(ServerFrame.this);
+					new Thread(server).start();
 					// 设置图标
 					excuteBtn.setIcon(new ImageIcon("stop.png"));
 				} else {
 					// 关闭服务器
+					if (Objects.nonNull(server)) {
+						server.close();
+					}
 					excuteBtn.setIcon(new ImageIcon("start.png"));
 				}
 

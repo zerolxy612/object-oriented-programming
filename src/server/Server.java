@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Objects;
 
 import javax.swing.JOptionPane;
 
@@ -46,6 +47,19 @@ public class Server implements Runnable{
 	}
 	public static void main(String[] args) {
 //		new Server().start();
+	}
+	
+	// 关闭服务器
+	public void close() {
+		if (Objects.nonNull(serverSocket)) {
+			try {
+				serverSocket.close();
+				JOptionPane.showMessageDialog(serverFrame, "服务器已经关闭");
+				serverFrame.getMessageArea().append(ChatRoomUtils.showMessage("服务器关闭!"));
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(serverFrame, "服务器繁忙!");
+			}
+		}
 	}
 
 	@Override
