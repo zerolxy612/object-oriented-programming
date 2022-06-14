@@ -1,9 +1,13 @@
 package eud.huanu.gui.server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.Charset;
 import java.util.Objects;
 
 import javax.swing.JOptionPane;
@@ -78,6 +82,13 @@ public class Server implements Runnable{
 //			如果有客户端连接,会返回一个socket实例
 			Socket clientSocket= serverSocket.accept();
 			System.out.println("服务端:获得客户端连接");
+			
+			// TODO: 读取客户端的数据
+			InputStream is = clientSocket.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is,Charset.forName("utf-8"));
+			BufferedReader br = new BufferedReader(isr);
+			String data = br.readLine();
+			System.out.println("服务端:"+data);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

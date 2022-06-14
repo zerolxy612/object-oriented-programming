@@ -1,8 +1,11 @@
 package edu.hunau.gui.client;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.charset.Charset;
 
 /**     
 *  
@@ -15,6 +18,9 @@ public class Client {
 		try {
 			Socket socket = new Socket("localhost",8088);
 			System.out.println(socket);
+			OutputStream os = socket.getOutputStream();
+			PrintWriter out = new PrintWriter(os,true,Charset.forName("utf-8"));
+			out.println("我来了!");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
