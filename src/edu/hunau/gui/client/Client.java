@@ -19,6 +19,7 @@ public class Client {
 			Socket socket = new Socket("localhost",8088);
 			System.out.println(socket);
 			OutputStream os = socket.getOutputStream();
+			// TRUE 自动刷新
 			PrintWriter out = new PrintWriter(os,true,Charset.forName("utf-8"));
 			out.println("我来了!");
 		} catch (UnknownHostException e) {
