@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import edu.hunau.gui.client.Client;
 import edu.hunau.gui.utils.BaseFrame;
 
 /**
@@ -78,6 +79,8 @@ public class LoginFrame extends BaseFrame {
 				String portInfo = portField.getText();
 				// 将字符串转成int类型
 				int port = Integer.parseInt(portInfo.trim());
+				
+				new Client(username,hostName,port).start();
 				
 				// 关闭LoginFrame
 				LoginFrame.this.dispose();

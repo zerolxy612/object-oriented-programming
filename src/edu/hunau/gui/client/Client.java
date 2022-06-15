@@ -13,6 +13,36 @@ import java.nio.charset.Charset;
 * @date 2022年6月13日  新建  
 */
 public class Client {
+	private Socket socket;
+	private String username;
+	
+	public Client() {
+		try {
+			socket = new Socket("localhost",8088);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public Client(String username,String hostName, int port) {
+		try {
+			this.username = username;
+			socket = new Socket(hostName,port);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void start() {
+		try {
+			OutputStream os = socket.getOutputStream();
+			PrintWriter out = new PrintWriter(os,true,Charset.forName("utf-8"));
+			out.println(username);
+		}catch(Exception e){
+			throw new RuntimeException(e);
+		}
+		
+	}
 	
 	public static void main(String[] args) {
 		try {
