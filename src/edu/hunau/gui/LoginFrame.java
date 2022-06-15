@@ -70,12 +70,19 @@ public class LoginFrame extends BaseFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("按钮被单击");
+				// 用户名
 				String username = userNameField.getText();
+				// 主机地址
+				String hostName = hostField.getText();
+				// 端口号
+				String portInfo = portField.getText();
+				// 将字符串转成int类型
+				int port = Integer.parseInt(portInfo.trim());
 				
 				// 关闭LoginFrame
 				LoginFrame.this.dispose();
 				
-				new ChatAllFrame().init();
+				new ChatAllFrame(username).init();
 				}
 		});
 		btnPanel.add(restBtn);
