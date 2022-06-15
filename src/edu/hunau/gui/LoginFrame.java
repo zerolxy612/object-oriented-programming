@@ -71,9 +71,11 @@ public class LoginFrame extends BaseFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("按钮被单击");
 				String username = userNameField.getText();
-				System.out.println(username);		
 				
+				// 关闭LoginFrame
+				LoginFrame.this.dispose();
 				
+				new ChatAllFrame().init();
 				}
 		});
 		btnPanel.add(restBtn);
