@@ -30,4 +30,9 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
+
+	public void addMessage(String message) {
+		// TODO Auto-generated method stub
+		
+	}
 }

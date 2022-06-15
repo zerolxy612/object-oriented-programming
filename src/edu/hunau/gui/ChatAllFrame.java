@@ -1,20 +1,24 @@
 package edu.hunau.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import edu.hunau.gui.client.Client;
 import edu.hunau.gui.utils.BaseFrame;
@@ -25,6 +29,7 @@ import edu.hunau.gui.utils.BaseFrame;
 * @date 2022年6月14日  新建  
 */
 public class ChatAllFrame extends BaseFrame{
+	
 	private String username;
 	private JTextArea messageSendArea;
 	
@@ -67,8 +72,12 @@ public class ChatAllFrame extends BaseFrame{
 		this.addWindowListener(new WindowAdapter() {
 			
 			@Override
-			public void windowClosing(WinowEvent e) {
-				
+			public void windowClosing(WindowEvent e) {
+				int result = JOptionPane.showConfirmDialog(ChatAllFrame.this, "确认退出吗?");
+				if(result==JOptionPane.YES_OPTION) {
+					// 退出
+					System.exit(0);
+				}
 			}
 		});
 	}
@@ -97,15 +106,39 @@ public class ChatAllFrame extends BaseFrame{
 			public void actionPerformed(ActionEvent e) {
 				// 获得消息
 				String message = messageSendArea.getText();
+				// TODO: 将message对象,传入到Client中的messageQueue中
+//				client.addMessage(message);
+				messageSendArea.setText("");
 				
-			});
+			}
+	});
+		btnPanel.add(sendBtn);
 		
-		}
-		return null;
+		jPanel.add(messageShowPane, BorderLayout.NORTH);
+		jPanel.add(messageSendPane);
+		jPanel.add(btnPanel, BorderLayout.SOUTH);
+		
+		return jPanel;
 	}
+	
+	/**
+	 * 
+	 * @return the messageShowArea
+	 */
+	public JTextArea getMessageShowArea() {
+		return messageShowArea;
 
-	private Component leftPanel() {
-		// TODO Auto-generated method stub
-		return null;
+	}
+	private JScrollPane leftPanel() {
+		JScrollPane jScrollPane = new JScrollPane();
+		DefaultTableModel userInfoModel = new DefaultTableModel(new String[] { "在线用户" },0);
+		
+		JTable userTable = new JTable(userInfoModel) ;
+		jScrollPane.setViewportView(userTable);
+		return jScrollPane;
+	}
+	public static void main(String[] args) {
+		
+		new ChatAllFrame().init();
 	}
 }
