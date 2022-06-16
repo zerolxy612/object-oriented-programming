@@ -80,12 +80,16 @@ public class LoginFrame extends BaseFrame {
 				// 将字符串转成int类型
 				int port = Integer.parseInt(portInfo.trim());
 				
-				new Client(username,hostName,port).start();
+				Client client = new Client(username,hostName,port);
+				client.start();
 				
 				// 关闭LoginFrame
 				LoginFrame.this.dispose();
 				
-				new ChatAllFrame(username).init();
+				ChatAllFrame chatAllFrame= new ChatAllFrame(username);
+				//FIXME: 存在问题
+				client.setChatAllFrame(chatAllFrame);
+				chatAllFrame.init();
 				}
 		});
 		btnPanel.add(restBtn);

@@ -92,6 +92,13 @@ public class Server implements Runnable{
 			String data = br.readLine();
 			// TODO 需要进行修改
 			serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(data+"登录上线!"));
+			//TODO: 持续读取客户端信息
+			while(true) {
+				String info = br.readLine();
+				if (Objects.nonNull(info) && info.equals("") ) {
+					serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(info));
+				}
+				}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

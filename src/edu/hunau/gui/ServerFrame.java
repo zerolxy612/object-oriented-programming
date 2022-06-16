@@ -86,7 +86,7 @@ public class ServerFrame extends BaseFrame {
 //	    表格中的数据模型
 //	    提供字段名称
 		Vector<String> colNames = new Vector<>();
-		colNames.add("客户端名称");
+		colNames.add("客户端列表");
 
 		DefaultTableModel clientInfoTableModel = new DefaultTableModel(colNames, 0);
 		JTable clientTable = new JTable(clientInfoTableModel);

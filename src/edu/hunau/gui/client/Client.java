@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 
+import edu.hunau.gui.ChatAllFrame;
+
 /**     
 *  
 * @author 龙翔宇  
@@ -15,7 +17,12 @@ import java.nio.charset.Charset;
 public class Client {
 	private Socket socket;
 	private String username;
+	private ChatAllFrame chatAllFrame;
 	
+	public void setChatAllFrame(ChatAllFrame chatAllFrame) {
+		this.chatAllFrame = chatAllFrame;
+	}
+
 	public Client() {
 		try {
 			socket = new Socket("localhost",8088);
@@ -34,12 +41,33 @@ public class Client {
 	}
 	
 	public void start() {
-		try {
-			OutputStream os = socket.getOutputStream();
-			PrintWriter out = new PrintWriter(os,true,Charset.forName("utf-8"));
-			out.println(username);
-		}catch(Exception e){
-			throw new RuntimeException(e);
+		// 启动发送线程的任务
+		new Thread(new SendMessageHandler()).start();
+		
+	}
+	
+	/**
+	 * 客户端 发送消息的线程
+	 * @author LXY
+	 *
+	 */
+	private class SendMessageHandler implements Runnable{
+
+		@Override
+		public void run() {
+			try {
+				OutputStream os = socket.getOutputStream();
+				PrintWriter out = new PrintWriter(os,true,Charset.forName("utf-8"));
+				out.println(username);
+				while(true) {
+					// 从消息框中获得用户输入的信息
+				    String message = chatAllFrame.getMessageSendArea().getText();
+				    out.println(message);
+				}
+			}catch(Exception e){
+				throw new RuntimeException(e);
+			}
+			
 		}
 		
 	}
