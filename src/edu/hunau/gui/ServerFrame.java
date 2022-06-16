@@ -20,6 +20,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import edu.hunau.gui.utils.BaseFrame;
@@ -36,10 +37,16 @@ public class ServerFrame extends BaseFrame {
 
 	public void init() {
 		this.setSize(800, 450);
+		this.setTitle("服务端");
+		
+		JPanel jPanel = new JPanel(new BorderLayout());
+		jPanel.setBorder(new EmptyBorder(7,10,7,10));
 
-		this.add(topPanel(), BorderLayout.NORTH);
-		this.add(middlePanel());
-		this.add(bottomPanel(), BorderLayout.SOUTH);
+		jPanel.add(topPanel(), BorderLayout.NORTH);
+		jPanel.add(middlePanel());
+		jPanel.add(bottomPanel(), BorderLayout.SOUTH);
+		
+		this.add(jPanel);
 
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
