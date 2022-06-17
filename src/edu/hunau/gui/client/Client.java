@@ -24,6 +24,7 @@ public class Client {
 	
 	/**
 	 *  客户端发送消息的消息队列
+	 *  messageQueue必须是线程安全的集合对象
 	 */
 	private List<String> messageQueue = Collections.synchronizedList(new LinkedList<String>()) ;
 	
@@ -76,6 +77,7 @@ public class Client {
 					// 从消息框中获得用户输入的信息
 					if(!messageQueue.isEmpty() && messageQueue.size()>0) {
 						System.out.println("client-addMessage==>"+messageQueue);
+						// 从index位置移除数据,并将数据返回
 						String message = messageQueue.remove(0);
 					    out.println(message);
 					}

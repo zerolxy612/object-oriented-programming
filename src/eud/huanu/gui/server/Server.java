@@ -79,25 +79,31 @@ public class Server implements Runnable{
 			JOptionPane.showMessageDialog(serverFrame, message);
 			
 			serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(message));
-//			如果有客户端连接,会返回一个socket实例
-			Socket clientSocket= serverSocket.accept();
-			String clientIp = clientSocket.getLocalAddress().getHostAddress();
-			System.out.println("服务端:获得客户端连接");
-			serverFrame.getMessageArea().append(ChatRoomUtils.showMessage("获得客户端连接,ip地址为: "+clientIp));
 			
-			// TODO: 读取客户端的数据
-			InputStream is = clientSocket.getInputStream();
-			InputStreamReader isr = new InputStreamReader(is,Charset.forName("utf-8"));
-			BufferedReader br = new BufferedReader(isr);
-			String data = br.readLine();
-			// TODO 需要进行修改
-			serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(data+"登录上线!"));
-			//TODO: 持续读取客户端信息
+			// TODO 持续地对客户端的连接进行监听
 			while(true) {
-				String info = br.readLine();
-				if (Objects.nonNull(info) && info.equals("") ) {
-					serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(info));
-				}
+//				如果有客户端连接,会返回一个socket实例
+				Socket clientSocket= serverSocket.accept();
+				String clientIp = clientSocket.getLocalAddress().getHostAddress();
+				System.out.println("服务端:获得客户端连接");
+				serverFrame.getMessageArea().append(ChatRoomUtils.showMessage("获得客户端连接,ip地址为: "+clientIp));
+				
+				// TODO: 读取客户端的数据
+				InputStream is = clientSocket.getInputStream();
+				InputStreamReader isr = new InputStreamReader(is,Charset.forName("utf-8"));
+				BufferedReader br = new BufferedReader(isr);
+				String data = br.readLine();
+				// TODO 需要进行修改
+				serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(data+"登录上线!"));
+				//TODO: 持续读取客户端信息
+				while(true) {
+					String info = br.readLine();
+					if (Objects.nonNull(info) && !info.equals("") ) {
+						serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(info));
+					}
+			}
+
+		
 				}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
