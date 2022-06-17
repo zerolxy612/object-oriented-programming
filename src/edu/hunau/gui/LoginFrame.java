@@ -86,7 +86,7 @@ public class LoginFrame extends BaseFrame {
 				// 关闭LoginFrame
 				LoginFrame.this.dispose();
 				
-				ChatAllFrame chatAllFrame= new ChatAllFrame(username);
+				ChatAllFrame chatAllFrame= new ChatAllFrame(username,client);
 				//FIXME: 存在问题
 				client.setChatAllFrame(chatAllFrame);
 				chatAllFrame.init();

@@ -70,7 +70,7 @@ public class Server implements Runnable{
 	public void run() {
 //		监听客户端
 		try {
-			
+
 			int port = serverSocket.getLocalPort();
 			String hostName = InetAddress.getLocalHost().getHostAddress();
 			String message = "服务器启动成功,ip地址为"+ hostName + ",监听端口:" + port;

@@ -107,7 +107,7 @@ public class ChatAllFrame extends BaseFrame{
 				// 获得消息
 				String message = messageSendArea.getText();
 				// TODO: 将message对象,传入到Client中的messageQueue中
-//				client.addMessage(message);
+				client.addMessage(message);
 				messageSendArea.setText("");
 				
 			}

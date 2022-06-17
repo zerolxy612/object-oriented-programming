@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import edu.hunau.gui.ChatAllFrame;
 
@@ -18,6 +21,16 @@ public class Client {
 	private Socket socket;
 	private String username;
 	private ChatAllFrame chatAllFrame;
+	
+	/**
+	 *  客户端发送消息的消息队列
+	 */
+	private List<String> messageQueue = Collections.synchronizedList(new LinkedList<String>()) ;
+	
+	public void addMessage(String message) {
+		messageQueue.add(message);
+		System.out.println("client-addMessage==>"+ messageQueue);
+	}
 	
 	public void setChatAllFrame(ChatAllFrame chatAllFrame) {
 		this.chatAllFrame = chatAllFrame;
@@ -61,8 +74,12 @@ public class Client {
 				out.println(username);
 				while(true) {
 					// 从消息框中获得用户输入的信息
-				    String message = chatAllFrame.getMessageSendArea().getText();
-				    out.println(message);
+					if(!messageQueue.isEmpty() && messageQueue.size()>0) {
+						System.out.println("client-addMessage==>"+messageQueue);
+						String message = messageQueue.remove(0);
+					    out.println(message);
+					}
+				    
 				}
 			}catch(Exception e){
 				throw new RuntimeException(e);
@@ -89,8 +106,5 @@ public class Client {
 		}
 	}
 
-	public void addMessage(String message) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }
