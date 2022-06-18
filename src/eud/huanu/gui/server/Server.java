@@ -13,6 +13,7 @@ import java.util.Objects;
 import javax.swing.JOptionPane;
 
 import edu.hunau.gui.ServerFrame;
+import edu.hunau.gui.utils.ChatRoomProtocol;
 import edu.hunau.gui.utils.ChatRoomUtils;
 
 /**     
@@ -84,6 +85,7 @@ public class Server implements Runnable{
 			while(true) {
 //				如果有客户端连接,会返回一个socket实例
 				Socket clientSocket= serverSocket.accept();
+				// 将获得的socket实例由线程进行处理
 				String clientIp = clientSocket.getLocalAddress().getHostAddress();
 				System.out.println("服务端:获得客户端连接");
 				serverFrame.getMessageArea().append(ChatRoomUtils.showMessage("获得客户端连接,ip地址为: "+clientIp));
@@ -92,14 +94,25 @@ public class Server implements Runnable{
 				InputStream is = clientSocket.getInputStream();
 				InputStreamReader isr = new InputStreamReader(is,Charset.forName("utf-8"));
 				BufferedReader br = new BufferedReader(isr);
-				String data = br.readLine();
-				// TODO 需要进行修改
-				serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(data+"登录上线!"));
+//				String data = br.readLine();
+//				// TODO 需要进行修改
+//				serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(data+"登录上线!"));
 				//TODO: 持续读取客户端信息
 				while(true) {
 					String info = br.readLine();
+					
 					if (Objects.nonNull(info) && !info.equals("") ) {
-						serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(info));
+						// 标识为登录消息
+						if(info.startsWith(ChatRoomProtocol.CLIENT_LOGIN)) {
+							//用户上线
+							serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(info+"登录上线!"));
+							
+						} else{
+							serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(info));
+						}
+	
+						
+						serverFrame.getMessageArea().selectAll();
 					}
 			}
 
@@ -108,5 +121,26 @@ public class Server implements Runnable{
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	/**
+	 * 定义一个服务维护socket的线程
+	 */
+	private class ServerHandler extends Thread{
+		private Socket socket;
+		
+		public ServerHandler (Socket socket) {
+			this.socket = socket;
+		}
+		
+		@Override
+		public void run() {
+			try {
+				
+			} catch(Exception e){
+				
+			}
+		}
+		
+		
 	}
 }

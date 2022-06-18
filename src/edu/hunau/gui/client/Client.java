@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.hunau.gui.ChatAllFrame;
+import edu.hunau.gui.utils.ChatRoomProtocol;
 
 /**     
 *  
@@ -72,7 +73,7 @@ public class Client {
 			try {
 				OutputStream os = socket.getOutputStream();
 				PrintWriter out = new PrintWriter(os,true,Charset.forName("utf-8"));
-				out.println(username);
+				out.println(ChatRoomProtocol.sendLoginMessage(username));
 				while(true) {
 					// 从消息框中获得用户输入的信息
 					if(!messageQueue.isEmpty() && messageQueue.size()>0) {
