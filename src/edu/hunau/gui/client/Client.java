@@ -80,7 +80,7 @@ public class Client {
 						System.out.println("client-addMessage==>"+messageQueue);
 						// 从index位置移除数据,并将数据返回
 						String message = messageQueue.remove(0);
-					    out.println(message);
+					    out.println(ChatRoomProtocol.SEND_ALL_MESSAGE + message);
 					}
 				    
 				}

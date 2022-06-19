@@ -102,13 +102,19 @@ public class Server implements Runnable{
 					String info = br.readLine();
 					
 					if (Objects.nonNull(info) && !info.equals("") ) {
+						String messageType =  ChatRoomProtocol.checkMessageType(info);
 						// 标识为登录消息
-						if(info.startsWith(ChatRoomProtocol.CLIENT_LOGIN)) {
-							//用户上线
-							serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(info+"登录上线!"));
+						if("login".equals(messageType)) {
 							
-						} else{
-							serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(info));
+							//用户上线
+							//提取用户信息
+							String username = ChatRoomProtocol.originMessage(info,ChatRoomProtocol.CLIENT_LOGIN);
+							serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(username+"登录上线!"));
+							// 将用户的信息存储到集合中
+							
+						} else if ("sendAll".equals(messageType)){
+							String message1 = ChatRoomProtocol.originMessage(info,ChatRoomProtocol.SEND_ALL_MESSAGE);
+							serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(message1));
 						}
 	
 						
