@@ -98,6 +98,44 @@ public class Server implements Runnable{
 			while(true) {
 //				如果有客户端连接,会返回一个socket实例
 				Socket clientSocket= serverSocket.accept();
+				// 将获得的socket实例由线程进行维护和处理
+				new ServerHandler(clientSocket).start();
+
+		} 
+		}catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
+	 * 更新在线用户列表
+	 * @param username
+	 */
+	private void updateClientList(String username) {
+		Vector<String> row = new Vector<String>();
+		row.add(username);
+		serverFrame.getClientInfoTableModel().addRow(row);
+		
+	}
+
+	/**
+	 * 在服务器中通过Map集合,维护客户端信息
+	 */
+	private Map<String,PrintWriter> clientMap = Collections.synchronizedMap(new HashMap<>());
+	
+	/**
+	 * 定义一个服务维护socket的线程
+	 */
+	private class ServerHandler extends Thread{
+		private Socket clientSocket;
+		
+		public ServerHandler (Socket socket) {
+			this.clientSocket = socket;
+		}
+		
+		@Override
+		public void run() {
+			try {
 				// 将获得的socket实例由线程进行处理
 				String clientIp = clientSocket.getLocalAddress().getHostAddress();
 				System.out.println("服务端:获得客户端连接");
@@ -142,7 +180,7 @@ public class Server implements Runnable{
 							if(clientMap.size()>0) {
 								Collection<PrintWriter> outs = clientMap.values();
 								for(PrintWriter out : outs) {
-									out.println(message);
+									out.println(message1);
 								}
 							}
 						}
@@ -153,41 +191,6 @@ public class Server implements Runnable{
 			}
 
 		
-				}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
-	/**
-	 * 更新在线用户列表
-	 * @param username
-	 */
-	private void updateClientList(String username) {
-		Vector<String> row = new Vector<String>();
-		row.add(username);
-		serverFrame.getClientInfoTableModel().addRow(row);
-		
-	}
-
-	/**
-	 * 在服务器中通过Map集合,维护客户端信息
-	 */
-	private Map<String,PrintWriter> clientMap = Collections.synchronizedMap(new HashMap<>());
-	
-	/**
-	 * 定义一个服务维护socket的线程
-	 */
-	private class ServerHandler extends Thread{
-		private Socket socket;
-		
-		public ServerHandler (Socket socket) {
-			this.socket = socket;
-		}
-		
-		@Override
-		public void run() {
-			try {
 				
 			} catch(Exception e){
 				
