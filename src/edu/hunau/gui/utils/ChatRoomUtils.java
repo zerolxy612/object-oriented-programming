@@ -16,14 +16,14 @@ public class ChatRoomUtils {
 		return time + ":" + message + "\n";
 	}
 	
-//	public static String chatMessage(String message) {
-//		String[] datas = message.split(ChatRoomProtocol.MESSAGE_SPLIT);
-//		
-//		LocalDateTime now = LocalDateTime.now();
-//		String time = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:MM:SS"));
-//		
-//		String info = datas[0] + " " + "\n" + datas[1] + "\n";
-//		
-//		return info;
-//	}
+	public static String chatMessage(String message) {
+		String[] datas = message.split(ChatRoomProtocol.MSSAGE_SPLIT);
+		
+		LocalDateTime now = LocalDateTime.now();
+		String time = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:MM:SS"));
+		
+		String info = datas[0] + " " + "\n" + datas[1] + "\n";
+		
+		return info;
+	}
 }

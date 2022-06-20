@@ -10,11 +10,18 @@ public interface ChatRoomProtocol {
 	 * 该消息为登录信息
 	 */
 	public static final String CLIENT_LOGIN="♦♦";
+	/**
+	 * 在线用户的列表
+	 */
+	public static final String ONLINE_USERNAME_LIST = "▓▓";
 	
 	/**
 	 * 消息类型为群发消息
 	 */
 	public static final String SEND_ALL_MESSAGE="■■";
+	
+	public static final String MSSAGE_SPLIT = "‡";
+	
 	
 	/**
 	 * 解析原始信息

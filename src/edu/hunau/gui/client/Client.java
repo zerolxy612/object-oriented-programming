@@ -1,6 +1,9 @@
 package edu.hunau.gui.client;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -9,9 +12,11 @@ import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import edu.hunau.gui.ChatAllFrame;
 import edu.hunau.gui.utils.ChatRoomProtocol;
+import edu.hunau.gui.utils.ChatRoomUtils;
 
 /**     
 *  
@@ -59,7 +64,29 @@ public class Client {
 		// 启动发送线程的任务
 		new Thread(new SendMessageHandler()).start();
 		//启动接收消息的线程
-		
+		new ReceiveMessageHandler().start();
+	}
+	/**
+	 * 接收消息的线程
+	 */
+	private class ReceiveMessageHandler extends Thread{
+		@Override
+		public void run() {
+			try {
+				InputStream is = socket.getInputStream();
+				InputStreamReader isr =  new InputStreamReader(is,Charset.forName("utf-8"));
+				BufferedReader br = new BufferedReader(isr);
+				while(true) {
+					String message = br.readLine();
+					if(Objects.nonNull(message)&& !message.equals("")) {
+						chatAllFrame.getMessageShowArea().append(ChatRoomUtils.chatMessage(message));
+						chatAllFrame.getMessageShowArea().selectAll();;
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**

@@ -10,6 +10,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +55,13 @@ public class Server implements Runnable{
 	}
 	
 	public void start() {
-		
+		try {
+			Socket clientSocket =  serverSocket.accept();
+			System.out.println("服务端:获得客户端的连接");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public static void main(String[] args) {
 //		new Server().start();
@@ -123,13 +130,21 @@ public class Server implements Runnable{
 							clientMap.put(username, out);
 							System.out.println(clientMap.keySet());
 							
-							Vector<String> row = new Vector<String>();
-							row.add(username);
-							serverFrame.getClientInfoTableModel().addRow(row);
+							updateClientList(username);
+							//将登录消息广播到所有在线客户端中
+							
 							
 						} else if ("sendAll".equals(messageType)){
 							String message1 = ChatRoomProtocol.originMessage(info,ChatRoomProtocol.SEND_ALL_MESSAGE);
 							serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(message1));
+							
+							//message发到所有客户端
+							if(clientMap.size()>0) {
+								Collection<PrintWriter> outs = clientMap.values();
+								for(PrintWriter out : outs) {
+									out.println(message);
+								}
+							}
 						}
 	
 						
@@ -144,6 +159,17 @@ public class Server implements Runnable{
 		}
 	}
 	
+	/**
+	 * 更新在线用户列表
+	 * @param username
+	 */
+	private void updateClientList(String username) {
+		Vector<String> row = new Vector<String>();
+		row.add(username);
+		serverFrame.getClientInfoTableModel().addRow(row);
+		
+	}
+
 	/**
 	 * 在服务器中通过Map集合,维护客户端信息
 	 */
