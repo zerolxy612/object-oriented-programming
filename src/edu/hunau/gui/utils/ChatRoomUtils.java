@@ -15,4 +15,15 @@ public class ChatRoomUtils {
 		String time = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		return time + ":" + message + "\n";
 	}
+	
+//	public static String chatMessage(String message) {
+//		String[] datas = message.split(ChatRoomProtocol.MESSAGE_SPLIT);
+//		
+//		LocalDateTime now = LocalDateTime.now();
+//		String time = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:MM:SS"));
+//		
+//		String info = datas[0] + " " + "\n" + datas[1] + "\n";
+//		
+//		return info;
+//	}
 }

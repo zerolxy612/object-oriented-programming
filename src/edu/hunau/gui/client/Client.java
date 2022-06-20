@@ -58,6 +58,7 @@ public class Client {
 	public void start() {
 		// 启动发送线程的任务
 		new Thread(new SendMessageHandler()).start();
+		//启动接收消息的线程
 		
 	}
 	

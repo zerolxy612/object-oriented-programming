@@ -85,10 +85,15 @@ public class ServerFrame extends BaseFrame {
 		JScrollPane leftPane = new JScrollPane();
 //	    表格中的数据模型
 //	    提供字段名称
-		Vector<String> colNames = new Vector<>();
-		colNames.add("客户端列表");
+//		Vector<String> colNames = new Vector<>();
+//		colNames.add("客户端列表");
 
-		DefaultTableModel clientInfoTableModel = new DefaultTableModel(colNames, 0);
+		clientInfoTableModel = new DefaultTableModel(new String[] { "客户端列表" }, 0) {
+			@Override
+			public boolean isCellEditable(int row,int column) {
+				return false;
+			}
+		};
 		JTable clientTable = new JTable(clientInfoTableModel);
 		leftPane.setViewportView(clientTable);
 
@@ -105,7 +110,12 @@ public class ServerFrame extends BaseFrame {
 		return jSplitPane;
 	}
 	
+	public DefaultTableModel getClientInfoTableModel() {
+		return clientInfoTableModel;
+	}
+
 	private Server server;
+	private DefaultTableModel clientInfoTableModel;
 
 //	顶部的组件
 	private JPanel topPanel() {

@@ -4,11 +4,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
@@ -111,6 +117,15 @@ public class Server implements Runnable{
 							String username = ChatRoomProtocol.originMessage(info,ChatRoomProtocol.CLIENT_LOGIN);
 							serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(username+"登录上线!"));
 							// 将用户的信息存储到集合中
+							//获得输出流
+							OutputStream os = clientSocket.getOutputStream();
+							PrintWriter out = new PrintWriter(os,true,Charset.forName("utf-8"));
+							clientMap.put(username, out);
+							System.out.println(clientMap.keySet());
+							
+							Vector<String> row = new Vector<String>();
+							row.add(username);
+							serverFrame.getClientInfoTableModel().addRow(row);
 							
 						} else if ("sendAll".equals(messageType)){
 							String message1 = ChatRoomProtocol.originMessage(info,ChatRoomProtocol.SEND_ALL_MESSAGE);
@@ -128,6 +143,12 @@ public class Server implements Runnable{
 			throw new RuntimeException(e);
 		}
 	}
+	
+	/**
+	 * 在服务器中通过Map集合,维护客户端信息
+	 */
+	private Map<String,PrintWriter> clientMap = Collections.synchronizedMap(new HashMap<>());
+	
 	/**
 	 * 定义一个服务维护socket的线程
 	 */
