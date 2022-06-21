@@ -22,7 +22,7 @@ public class ChatRoomUtils {
 		LocalDateTime now = LocalDateTime.now();
 		String time = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:MM:SS"));
 		
-		String info = datas[0] + " " + "\n" + datas[1] + "\n";
+		String info = datas[0] + " " +time+ "\n" + datas[1] + "\n";
 		
 		return info;
 	}

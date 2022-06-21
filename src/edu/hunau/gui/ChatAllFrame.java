@@ -68,7 +68,7 @@ public class ChatAllFrame extends BaseFrame{
 		this.add(jSplitPane);
 		
 		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 			
 			@Override

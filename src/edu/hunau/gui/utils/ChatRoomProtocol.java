@@ -20,7 +20,7 @@ public interface ChatRoomProtocol {
 	 */
 	public static final String SEND_ALL_MESSAGE="■■";
 	
-	public static final String MSSAGE_SPLIT = "‡";
+	public static final String MSSAGE_SPLIT = "‡‡";
 	
 	
 	/**
@@ -30,7 +30,6 @@ public interface ChatRoomProtocol {
 	 * @return 战三
 	 */
 	public static String originMessage(String data,String messageType) {
-		
 		
 		return data.replace(messageType,"");
 	}

@@ -128,7 +128,7 @@ public class Server implements Runnable{
 	 */
 	private class ServerHandler extends Thread{
 		private Socket clientSocket;
-		
+		private String username;
 		public ServerHandler (Socket socket) {
 			this.clientSocket = socket;
 		}
@@ -159,7 +159,7 @@ public class Server implements Runnable{
 							
 							//用户上线
 							//提取用户信息
-							String username = ChatRoomProtocol.originMessage(info,ChatRoomProtocol.CLIENT_LOGIN);
+							username = ChatRoomProtocol.originMessage(info,ChatRoomProtocol.CLIENT_LOGIN);
 							serverFrame.getMessageArea().append(ChatRoomUtils.showMessage(username+"登录上线!"));
 							// 将用户的信息存储到集合中
 							//获得输出流
@@ -180,7 +180,7 @@ public class Server implements Runnable{
 							if(clientMap.size()>0) {
 								Collection<PrintWriter> outs = clientMap.values();
 								for(PrintWriter out : outs) {
-									out.println(message1);
+									out.println(username+":"+ChatRoomProtocol.MSSAGE_SPLIT+ message1);
 								}
 							}
 						}
